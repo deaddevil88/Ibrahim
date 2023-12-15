@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigger Fury Easy Mode</title>
+    <link rel="icon" href="Trigger Fury.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        #gunImage {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            align-items: baseline;
+            margin-top: 275px;
+            margin-left: 1000px;
+        }
+
+        #anotherImage {
+            cursor: pointer;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+        }
+
+        #cursorImage {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+        }
+
+        #gameOverText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            color: rgb(255, 0, 0);
+            display: none;
+            animation: pulse 2s infinite;
+        }
+
+        #clickCounter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: rgb(0, 0, 0);
+            animation: bounce 1s infinite;
+        }
+
+        #objectiveText {
+            position: absolute;
+            top: 70vh; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: #000000;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<img id="gunImage" src="gun.jpg" alt="Gun Image">
+<img id="anotherImage" src="enemy.jpg" alt="Another Image" onclick="repositionImage(); updateClickCounter()">
+<img id="cursorImage" src="cursor.jpg" alt="Cursor Image">
+<div id="gameOverText"><p>Game Over</p></div>
+<div id="clickCounter">Clicks: 0</div>
+<div id="objectiveText">Eliminate the enemy 15 times before the timer runs out!</div>
+
+<script>
+    var cursorImage = document.getElementById("cursorImage");
+    var gameOverText = document.getElementById("gameOverText");
+    var clickCounter = document.getElementById("clickCounter");
+    var gameTimer;
+    var clicks = 0;
+    var currentLevel = 1; // Set the initial level to Easy
+
+    document.addEventListener("mousemove", function(event) {
+        cursorImage.style.left = event.clientX - cursorImage.width / 2 + "px";
+        cursorImage.style.top = event.clientY - cursorImage.height / 2 + "px";
+    });
+
+    function startLevel(level) {
+        clicks = 0;
+        updateClickCounter();
+        gameTimer = getLevelTime(level);
+
+        var intervalId = setInterval(function() {
+            repositionImage();
+            gameTimer--;
+
+            if (gameTimer <= 0) {
+                clearInterval(intervalId);
+                showGameOver();
+            }
+        }, 1000);
+    }
+
+    function repositionImage() {
+        var image = document.getElementById("anotherImage");
+        var newX = Math.floor(Math.random() * window.innerWidth);
+        var newY = Math.floor(Math.random() * window.innerHeight);
+
+        image.style.left = newX + "px";
+        image.style.top = newY + "px";
+    }
+
+    function updateClickCounter() {
+        clicks++;
+        clickCounter.textContent = "Clicks: " + clicks;
+    }
+
+    function showGameOver() {
+        gameOverText.style.display = "block";
+    }
+
+    function getLevelTime(level) {
+        // Adjust the time for each level
+        switch (level) {
+            case 1:
+                return 10; // Easy level - 10 seconds
+            case 2:
+                return 8; // Medium level - 8 seconds
+            case 3:
+                return 6; // Hard level - 6 seconds
+            case 4:
+                return 4; // Extreme level - 4 seconds
+            default:
+                return 10; // Default to easy level
+        }
+    }
+
+    // Start the initial level
+    startLevel(currentLevel);
+</script>
+
+</body>
+</html>

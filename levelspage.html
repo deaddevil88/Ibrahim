@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levels Page</title>
+    <link rel="icon" href="Trigger Fury.png" >
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #333, #666); /* Dark gray to light gray gradient */
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .custom-select select {
+            display: none; /* Hide the original select element */
+        }
+
+        .select-styled {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            background-color: #282c34;
+            cursor: pointer;
+        }
+
+        .select-styled:after {
+            content: '\25BC'; /* Unicode character for down arrow */
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .select-options {
+            display: none;
+            position: absolute;
+            background-color: #282c34;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .select-options div {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .select-options div:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="custom-select">
+    <div class="select-styled" id="selectedLevel" style="margin-right: 7px;">Levels</div>
+    <div class="select-options">
+        <div data-value="10"><a href="easy.html">Easy</a></div>
+        <div data-value="15"><a href="medium.html">Medium</a></div>
+        <div data-value="25"><a href="hard.html">Hard</a></div>
+        <div data-value="38"><a href="extreme.html">Extreme</a></div>
+    </div>
+</div>
+
+<script>
+    // Script to handle the custom select
+    var selectStyled = document.querySelector('.select-styled');
+    var selectOptions = document.querySelector('.select-options');
+    var selectedLevel = document.getElementById('selectedLevel');
+
+    selectStyled.addEventListener('click', function() {
+        selectOptions.style.display = selectOptions.style.display === 'none' ? 'block' : 'none';
+    });
+
+    selectOptions.addEventListener('click', function(e) {
+        if (e.target.tagName === 'DIV') {
+            var selectedValue = e.target.getAttribute('data-value');
+            selectedLevel.textContent = e.target.textContent;
+            selectOptions.style.display = 'none';
+
+            // You can use the selectedValue as needed, e.g., to set a timer in your game
+            console.log('Selected Level:', selectedValue);
+        }
+    });
+</script>
+
+</body>
+</html>

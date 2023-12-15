@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigger Fury</title>
+    <link rel="icon" href="Trigger Fury.png" >
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #333, #666); /* Dark gray to light gray gradient */
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .button {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #playButton {
+            background-color: #ffcc00; /* Button color */
+            color: #282c34; /* Button text color */
+            margin-right: 5px;
+            margin-left: 0px;
+        }
+
+        #creditsButton {
+            background-color: #4CAF50; /* Button color */
+            color: #fff; /* Button text color */
+        }
+
+        .button:hover {
+            background-color: #282c34; /* Hover background color */
+            color: #ffcc00; /* Hover text color */
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Welcome to Trigger Fury</h1>
+    <button id="playButton" class="button">&#9654; Play Now</button>
+    <button id="creditsButton" class="button" onclick="openCreditsPage()">Credits</button>
+</div>
+
+<script>
+    document.getElementById('playButton').addEventListener('click', function() {
+        // Change the location to the game page (adjust the path accordingly)
+        window.location.href = 'levelspage.html';
+    });
+
+    function openCreditsPage() {
+        // Change the location to the credits page (adjust the path accordingly)
+        window.location.href = 'credits.html';
+    }
+</script>
+
+</body>
+</html>
